@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title></title>
+    <script src="https://cdn.staticfile.org/angular.js/1.4.6/angular.min.js"></script> 
+    <style type="text/css">
+        table{
+            width: 80%;
+            margin: 0 auto;
+            height: 20%;
+            font-family: 'Microsoft JhengHei';
+            font-size: 14px;
+            /* border: solid 1px #ff0000; */   
+        }
+        th {
+
+            background: rgb(255, 255, 255);
+            text-align: left; 
+            color: rgb(0, 0, 0);
+        }
+        input{
+            background: rgb(0, 0, 0);
+            text-align: left;
+            font-family: Arial, "Helvetica Neue", Helvetica, sans-serif;
+            color: rgb(255, 255, 255);
+            width: 90%;
+            height: 100%;
+        }
+        td{
+            height: 35px;
+        }
+    </style>
+</head>
+
+<body ng-app="myApp" ng-controller="myCtrl">
+    <table>
+        <th>工号</th>
+        <th>姓名</th>
+        <th>部门</th>
+        <th>申请日期</th>
+        <tr>
+            <td><input disabled="disabled" ng-value="employeeID"></td>
+            <td><input disabled="disabled" ng-value="employeeName"></td>
+            <td><input disabled="disabled" ng-value="employeeDepartment"></td>
+            <td ><input disabled="disabled" ng-value="applyDate"></td>
+        </tr>
+    </table>
+    <!-- <div id="employeeID">
+        <input>
+     </div> -->
+    <script>
+        var app = angular.module("myApp", []);
+        app.controller('myCtrl', ['$scope', function ($scope) {
+            $scope.employeeID='Z19050796';
+            $scope.employeeName='黄玉梅';
+            $scope.employeeDepartment='JML111';
+            $scope.applyDate=new Date();
+        }]);
+    </script>
+
+</body>
+
+</html>
+node --max-old-space-size;
+node --max-new-space-size;

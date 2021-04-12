@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title></title>
+    <script src="https://cdn.staticfile.org/angular.js/1.4.6/angular.min.js"></script>
+    <script src="https://cdn.bootcdn.net/ajax/libs/angular-translate/2.18.4/angular-translate.min.js"></script>
+    <script
+        src="https://cdn.bootcdn.net/ajax/libs/angular-translate/2.18.4/angular-translate-loader-static-files/angular-translate-loader-static-files.min.js"></script>
+</head>
+<body ng-app="myApp" ng-controller="myCtrl">
+    <!-- <form>
+        <select>
+            <option value="简体中文">简体中文</option>
+            <option value="English">English</option>   
+        </select>
+    </form> -->
+    <div>
+        <label for="flag">全选
+            <input id="flag" type="checkbox" ng-model="select_all" ng-click="selectAll()">
+        </label>
+        <ul>
+            <li ng-repeat="i in list">
+                <input type="checkbox" ng-model="m[i.id]" ng-checked="select_one" ng-click="selectOne(m[i.id])">
+                <span>{{i.name}}</span>
+            </li>
+        </ul>
+    </div>
+    <div table-directive> </div>
+    <!-- <div ng-model="limit">
+           <ul >{{limit}}</ul>
+       </div > -->
+    <!-- limitTo: 3 -->
+    <!-- <table >
+           <tr ng-model="limit1" ng-model="begin1">
+              <td ng-repeat="x in records |limitTo : limit1 : begin1" >{{x.name}}</td> 
+           </tr>
+           <tr ng-model="limit3" ng-model="begin3">
+            <td ng-repeat="x in records |limitTo : limit2 : begin2" >{{x.name}}</td> 
+           </tr>
+          
+           <tr ng-model="limit3" ng-model="begin3">
+            <td ng-repeat="x in records |limitTo : limit3 : begin3" >{{x.name}}</td> 
+           </tr>      
+       </table> -->
+    <!-- <h1 ng-repeat="x in records">{{x}}</h1> -->
+    <script>
+        var app = angular.module("myApp", []);
+        // app.config('$translateProvider', function ($translateProvider) {
+        //    var language = window.localStorage.language || 'cn';
+        //    $translateProvider.preferredLanguage(language);
+        //    $translateProvider.useStaticFilesLoader({
+        //        prefix: '/i18n',
+        //        suffix: '.json'
+        //    })
+        // });
+        // app.filter("T",['$translate', function($translate){
+        //     return function(key) {
+        //         if(key){
+        //             return $translate.instant(key);
+        //         }
+        //     }
+        // }])
+        app.controller('myCtrl', ['$scope',function ($scope) {
+            // $scope.switching = function(language){
+            //     $translate.use(language);
+            //     window.localStorage.language = language;
+            //     window.location.reload();
+            // };
+            // $scope.cur_language = $translate.use();
+            
+            $scope.list = [
+                { 'id': 1, 'name': '工号' },
+                { 'id': 2, 'name': '名字' },
+                { 'id': 3, 'name': '部门' },
+                { 'id': 4, 'name': '填单日期' },
+                // { 'id': 5, 'name': '邮箱' }
+            ]
+            $scope.m = [];
+            $scope.checked = [];
+            $scope.selectAll = function () {
+                if ($scope.select_all) {
+                    $scope.select_one = true;
+                    $scope.checked = [];
+                    angular.forEach($scope.list, function (i, index) {
+                        $scope.checked.push(i.id);
+                        $scope.m[i.id] = true;
+                    })
+                } else {
+                    $scope.select_one = false;
+                    $scope.checked = [];
+                    $scope.m = [];
+                }
+                console.log($scope.checked);
+                console.log($scope.m[i.id]);
+            };
+            $scope.selectOne = function (select) {
+                angular.forEach($scope.m, function (i, id) {
+                    var index = $scope.checked.indexOf(id);
+                    if (i && index === -1) {
+                        $scope.checked.push(id);
+                    } else if (!i && index !== -1) {
+                        $scope.checked.splice(index, 1);
+                    };
+                });
+                if ($scope.list.length === $scope.checked.length) {
+                    $scope.select_all = true;
+                } else {
+                    $scope.select_all = false;
+                }
+                console.log($scope.checked);
+            }
+        }]).directive("tableDirective", function () {
+            return {
+                restrict: "EA",
+                template: "<table><th rowspan='4'>XXX申请表单</th><tr><td><div person-directive ng-show='m[1]'></div></td><td><div department-directive ng-show='m[2]'></div></td><td><div engilshname-directive ng-show='m[3]'></div></td><td><div applydate-directive ng-show='m[4]'></div></td><td><div email-directive ng-show='m[5]'></div></td></tr><tr></tr></table>"
+            }
+        }).directive("personDirective", function () {
+            return {
+                restrict: "A",
+                template: "<h4>工号</h4><input style='border:0.5px solid #378888;width:100px;height:20px'></input>"
+            }
+        }).directive("engilshnameDirective", function () {
+            return {
+                restrict: "A",
+                template: "<h4>名&nbsp;&nbsp;&nbsp;字</h4><input style='border:0.5px solid #378888;width:100px;height:20px'></input>"
+            }
+        }).directive("departmentDirective", function () {
+            return {
+                restrict: "A",
+                template: "<h4>部&nbsp;&nbsp;&nbsp;门</h4><input style='border:0.5px solid #378888;width:100px;height:20px'></input>"
+            }
+        }).directive("emailDirective", function () {
+            return {
+                restrict: "A",
+                template: "<h4>邮&nbsp;&nbsp;&nbsp;箱</h4><input style='border:0.5px solid #378888;width:100px;height:20px'></input>"
+            }
+        }).directive("applydateDirective", function () {
+            return {
+                restrict: "A",
+                template: "<h4>填单日期</h4><input style='border:0.5px solid #378888;width:100px;height:20px'></input>"
+            }
+        });
+    </script>
+
+</body>
+
+</html>
