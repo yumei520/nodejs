@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title></title>
+     <script src="angular.min.js"></script>  
+     <script src="jquery.min.js"></script> 
+</head>
+<body ng-app="myApp" ng-controller="myCtrl">
+    <div>
+        <input ng-model = "message" id="inputstyle">
+    </div>
+    <br>
+    <table>
+        <th>工号</th>
+        <th>姓名</th>
+        <th>部门</th>
+        <th>申请日期</th>
+        <tr>
+            <td><input id="employeeID" name="employeeID" ng-value="employeeID"  ng-model="employeeID"></td>
+            <td><input  id="employeeName" ng-model="employeeName" disabled="disabled"></td>
+            <td><input  ng-model="employeeDepartment"></td>
+            <td><input  ng-model="applyDate" disabled="disabled"></td>
+        </tr>
+    </table>
+    <script>
+        var app = angular.module("myApp", []);
+        app.controller('myCtrl', ['$scope', '$http','$filter' ,function ($scope, $http,$filter) {
+            $scope.employeeID = '';
+            $scope.employeeName='姓名';
+            $scope.employeeDepartment='部门';
+            $scope.applyDate=$filter("date")(new Date(), "yyyy-MM-dd HH:mm:ss");
+            $scope.message = '请假申请单';
+            $scope.$watch('employeeID', function (newValue, oldValue) {
+                var name='';
+                var dept='';
+                var onchange = false;
+                if (newValue != oldValue) {
+                    if (newValue == "") {
+                    } else {
+                        let url = "https://commonhttp.k8sprd-wzs.k8s.wistron.com.cn/hr-emp-infos/" + newValue;
+                       $http({
+                            method: 'GET',
+                            url: url
+                        }).then(function successCallback(response) {
+                            onchange=true;
+                            $scope.employeeID = newValue;
+                            $scope.employeeName = response.data[0].name;
+                            $scope.employeeDepartment = response.data[0].deptidA;
+                            name = response.data[0].name;
+                            dept = response.data[0].deptidA;
+                            $scope.applyDate = $filter("date")(new Date(), "yyyy-MM-dd HH:mm:ss");  
+                        }, function errorCallback(response) {
+                            // 请求失败执行代码
+                        });
+                    }
+                }
+                if(onchange){
+                    $('#employeeName').val(name).change(); 
+                }
+                
+            })
+        }]);
+    </script>
+</body>
+
+</html>

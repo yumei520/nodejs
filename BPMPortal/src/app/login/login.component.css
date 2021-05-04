@@ -1,0 +1,265 @@
+body {
+	width:100%;
+	height:100%;
+	margin:0px;
+	font-family:Helvetica, Arial, sans-serif;
+	font-weight:normal;
+	font-size:12px;
+	color:#000000;
+}
+
+.login_background_image{
+	width:100%;
+	height:100%;
+	position:absolute;
+	top:0;
+	left:0;
+	background-color: #3B3E40;
+	/* Mozilla Firefox < v16.0*/
+	background-image: -moz-radial-gradient(center, circle closest-corner, #202224 0%, #3B3E40 100%);
+	/* Webkit (Safari/Chrome 10) */
+	/* Webkit (Chrome 11+) */
+	background-image: -webkit-radial-gradient(center, circle closest-corner, #202224 0%, #3B3E40 100%);
+
+	/* W3C Markup, IE10, Firefox v16+, Chrome 20+ */
+	background-image: radial-gradient(circle closest-side at left center, #202224 0%, #3B3E40 100%);
+}
+
+.login_content {
+	width:510px;
+	height:400px;
+	position:absolute;
+	left:50%;
+	top:50%;
+	margin:-295px 0 0 -255px;
+}
+
+.title_text{
+	/*this amount of padding-top may have to change if the font size grows. The base line of the text must align with the baseline of IBM in the logo to the left.*/
+	padding-top:56px;
+	color:#FFFFFF;
+	font-size:24px;
+	float:left;
+}
+
+.login_header{
+	height:105px;
+	width:510px;
+}
+
+.login_ibm_logo{
+	margin-left:-30px;
+	float:left;
+	position: relative;
+	bottom: -4px;
+	width: 180px;
+	height: 105px;
+}
+
+.dj_rtl .login_ibm_logo{
+    margin-left:auto;
+    margin-right:-30px;
+	float:right;
+}
+
+
+.popup_window{
+	float: left;
+	background-color:#FFFFFF;
+	border:1px solid #323537;
+	border-radius:8px;
+	margin-bottom: 10px;
+
+	-moz-box-shadow: 0 0 40px 1px rgba(0,0,0,0.6);
+	-webkit-box-shadow: 0 0 40px 1px rgba(0,0,0,0.6);
+	box-shadow: 0 0 40px 1px rgba(0,0,0,0.6);
+}
+
+
+.dj_ie7-rtl  .popup_window{
+        height: 250px;
+}
+ .login_window_content{
+	margin: 40px;
+	float: left;
+}
+
+.login-copyright {
+	height: 42px;
+	padding: 15px;
+	text-align: center;
+	color: #999;
+	font-size: 11px;
+}
+
+.loginLabel{
+	float: left;
+	color:#2D2D2D;
+	font-size:18px;
+	padding-bottom: 7px;
+}
+
+.dj_rtl  .loginLabel {
+	float: right;
+}
+
+.login-field {
+	-moz-border-radius: 2px;
+	-moz-box-sizing: border-box;
+	-webkit-border-radius: 2px;
+	border-radius: 2px;
+	font-size: 12px;
+	font-weight: normal;
+	height: 30px;
+	line-height: 15px;
+	width:428px;
+	padding: 0px 5px;
+	background-image: linear-gradient(bottom, rgb(255,255,255) 50%, rgb(239,239,239) 100%);
+	background-image: -o-linear-gradient(bottom, rgb(255,255,255) 50%, rgb(239,239,239) 100%);
+	background-image: -moz-linear-gradient(bottom, rgb(255,255,255) 50%, rgb(239,239,239) 100%);
+	background-image: -webkit-linear-gradient(bottom, rgb(255,255,255) 50%, rgb(239,239,239) 100%);
+	background-image: -ms-linear-gradient(bottom, rgb(255,255,255) 50%, rgb(239,239,239) 100%);
+	border: 1px solid #BBB;
+}
+.login-field:hover{
+	border-color:#999;
+}
+.login-field:focus {
+	border:1px solid #1b69a9;
+	-moz-box-shadow: 0 0 2px 1px rgba(27,118,188,.9);
+	-webkit-box-shadow: 0 0 2px 1px rgba(27,118,188,.9);
+	box-shadow: 0 0 2px 1px rgba(27,118,188,.9);
+}
+
+.dj_rtl  .login-field {
+	direction: rtl;
+}
+
+ .login_username_field {
+	float: left;
+}
+
+ .login_username_field .login-field {
+	margin-bottom: 25px;
+}
+ .login_password_field {
+	float: left;
+}
+
+ .lotusFormErrorField{
+	width:428px;
+	height: 30px;
+	font-size: 18px;
+}
+
+ .legal_text{
+	text-align:center;
+	font-size:11px;
+	color:#999;
+}
+
+.btn:hover {
+	color:#fff;
+
+	border-top-color:#4178aa;
+	border-left-color:#4178aa;
+	border-bottom-color:#21486c;
+	border-right-color:#21486c;
+
+	filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#429CE2', endColorstr='#124B80');
+	-ms-filter: "progid:DXImageTransform.Microsoft.gradient(startColorstr='#429CE2', endColorstr='#124B80')";
+
+	background-image: linear-gradient(bottom, #124B80 0%, #429CE2 100%);
+	background-image: -o-linear-gradient(bottom, #124B80 0%, #429CE2 100%);
+	background-image: -moz-linear-gradient(bottom, #124B80 0%, #429CE2 100%);
+	background-image: -webkit-linear-gradient(bottom, #124B80 0%, #429CE2 100%);
+	background-image: -ms-linear-gradient(bottom, #124B80 0%, #429CE2 100%);
+
+	-moz-box-shadow: 0 2px 3px rgba(0,0,0,.5);
+	-webkit-box-shadow: 0 2px 3px rgba(0,0,0,.5);
+	box-shadow: 0 2px 3px rgba(0,0,0,.5);
+}
+
+ .btn{
+	height:30px;
+	min-width: 100px;
+
+	color:#f2f2f2;
+	background-color: #1b69a9;
+
+	border-radius: 4px;
+	text-align:center;
+ 	font-size:14px;
+	font-weight:bold;
+
+	border:1px solid #21486c;
+	border-top-color:#4178aa;
+	border-left-color:#4178aa;
+	border-bottom-color:#21486c;
+	border-right-color:#21486c;
+
+	filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#1B76BC', endColorstr='#124B80');
+	-ms-filter: "progid:DXImageTransform.Microsoft.gradient(startColorstr='#1B76BC', endColorstr='#124B80')";
+
+	background-position: 0px 0px;
+	background-image: linear-gradient(bottom, #124B80 0%, #1B76BC 100%);
+	background-image: -o-linear-gradient(bottom, #124B80 0%, #1B76BC 100%);
+	background-image: -moz-linear-gradient(bottom, #124B80 0%, #1B76BC 100%);
+	background-image: -webkit-linear-gradient(bottom, #124B80 0%, #1B76BC 100%);
+	background-image: -ms-linear-gradient(bottom, #124B80 0%, #1B76BC 100%);
+
+
+}
+
+.loginButton{
+	float:left;
+	margin-top:25px;
+}
+
+.dj_ie7  .btn{
+        margin-bottom: 30px;
+        margin-right: -50px;
+}
+
+.dj_rtl  .btn{
+        margin: 25px -7px 0 0;
+	float:left;
+}
+
+.dj_ie7-rtl  .btn{
+        margin-left: -40px;
+}
+
+.loginFailedMessage{
+	float: left;
+	padding:10px 8px 10px 8px;
+	margin-bottom: 25px;
+	background-color:#fbdbd3;
+	color:#93270c;
+	border:1px solid #cd462f;
+	font-size: 12px !important;
+}
+
+.dj_rtl  .loginFailedMessage {
+	float: right;
+}
+
+.redirectLoginMessage {
+    float: left;
+    padding:10px 8px 10px 8px;
+    margin-bottom: 25px;
+    background-color:#165f9b;
+    width: 412px;
+    color:#ffffff;
+    font-size: 15px !important;
+    border-radius: 4px;
+    text-align: center;
+}
+
+.dj_rtl  .redirectLoginMessage {
+    float: right;
+}
+
+.redirectLoginMessageHide {
+    display: none;
+}

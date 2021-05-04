@@ -1,19 +1,16 @@
 <!DOCTYPE html>
 <html>
-
 <head>
-    <meta charset="utf-8">
-    <script src="https://cdn.staticfile.org/angular.js/1.4.6/angular.min.js"></script>
+    <title></title>
+     <script src="https://cdn.staticfile.org/angular.js/1.4.6/angular.min.js"></script>
     <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.8.0/jquery.min.js"></script>
     <script src="../angularjs/angular-translate.js"></script>
-    <script src="../angularjs/directive/language/"></script>
-    <style type="text/css">
+     <style type="text/css">
         table {
-            width: 80%;
-            margin: 0 auto;
+            width: 100%;
             height: 20%;
             font-family: 'Microsoft JhengHei';
-            font-size: 14px;
+            font-size: 1em;
             /* border: solid 1px #ff0000; */
         }
 
@@ -24,20 +21,20 @@
             color: rgb(0, 0, 0);
         }
 
-        table input {
+        table input { 
+        	width: 90%;
+        	height: 100%;
             background: rgb(255, 255, 255);
             text-align: left;
             font-family: Arial, "Helvetica Neue", Helvetica, sans-serif;
             color: rgb(0, 0, 0);
-            width: 90%;
-            height: 100%;
             border: 0.5px solid rgb(166, 166, 166)
         }
 
         #inputstyle {
             background: rgb(37, 73, 107);
             font-family: 'Microsoft JhengHei';
-            font-size: 18px;
+            font-size: 2em;
             color: rgb(255, 255, 255);
             text-align: center;
             width: 97.5%;
@@ -47,7 +44,6 @@
 
         div {
             min-width: 20%;
-            width: 80%;
             margin: 0 auto;
             height: 20%;
         }
@@ -57,15 +53,11 @@
         }
     </style>
 </head>
-
-
-
 <body ng-app="myApp" ng-controller="myCtrl">
-    <div>
+	<div>
         <input ng-model="'message' | translate " id="inputstyle">
-    </div>
+        <br>
     <br>
-    <input type="hidden" ng-value="language">
     <table>
         <th>{{ 'employeeID' | translate }}</th>
         <th>{{ 'employeeName' | translate }}</th>
@@ -78,20 +70,10 @@
             <td><input ng-value="applyDate" disabled="disabled"></td>
         </tr>
     </table>
-    <div>
-        <button ng-click="changeLanguage('vv')">切换越南语</button>
     </div>
+    
     <script>
         var app = angular.module("myApp", ['pascalprecht.translate']);
-        // app.config(['$translateProvider', function ($translateProvider) {
-        //     // 读取本地JSON文件，prefix代表文件路径前缀，suffix代表文件后续
-        //     $translateProvider.useStaticFilesLoader({
-        //         prefix: '../angularjs/directive/language/',
-        //         suffix: '.json'
-        //     });
-        //     $translateProvider.preferredLanguage('en');
-        // }]);
-
         app.config(['$translateProvider', function ($translateProvider) {
             $translateProvider.translations('en', {
                 'employeeID': 'employeeID',
@@ -113,7 +95,7 @@
                 'employeeName': '姓名',
                 'employeeDepartment': '部門',
                 'applyDate': '申請日期',
-                'message': '請假申請表'
+                'message': '請假申請表'         
             });
             $translateProvider.translations('vv', {
                 'employeeID': 'Số công việc',
@@ -124,39 +106,53 @@
             });
             $translateProvider.preferredLanguage('zh');
         }]);
-        app.controller('myCtrl', ['$scope', '$http', '$filter', '$translate', function ($scope, $http, $filter, $translate) {
-            $scope.changeLanguage = function (key) {
-                $translate.use(key);
-            };
+        app.controller('myCtrl', ['$scope', '$http', '$filter', '$timeout', function ($scope, $http, $filter,$timeout) {
             $scope.employeeID = '';
             $scope.employeeName = '';
             $scope.employeeDepartment = '';
             $scope.applyDate = $filter("date")(new Date(), "yyyy-MM-dd HH:mm:ss");
             $scope.message = '请假申请单';
-            $scope.$watch('employeeID', function (newValue, oldValue) {
-                if (newValue != oldValue) {
+            $scope.$watch('employeeID', function (newValue, oldValue) { 
+//               console.log("newValue "+newValue);
+//               console.log("oldValue "+oldValue);
+//               console.log("newValuelength "+newValue.length);
+//               console.log("oldValuelength "+oldValue.length);
+                if (newValue.length >= oldValue.length && newValue.length > 5 && newValue.length < 10) {
+                
                     if (newValue == "") {
+                    	
                     } else {
-                        let url = "https://commonhttp.k8sprd-wzs.k8s.wistron.com.cn/hr-emp-infos/" + newValue;
-                        $http({
-                            method: 'GET',
-                            url: url,
-                            xhrFields: {
-                                withCredentials: true
-                            },
-                            crossDomain: true
-                        }).then(function successCallback(response) {
-                            // $scope.result = response.data;
-                            $scope.employeeID = newValue;
-                            $scope.employeeName = response.data[0].name;
-                            $scope.employeeDepartment = response.data[0].deptidA;
-                            $scope.applyDate = $filter("date")(new Date(), "yyyy-MM-dd HH:mm:ss");
-                        }, function errorCallback(response) {
-                            // 请求失败执行代码
-                        });
-                    }
+                  	if ($scope.timeout) $timeout.cancel($scope.timeout);
+  					$scope.timeout = $timeout(function() {
+  						let url = "https://commonhttp.k8sprd-wzs.k8s.wistron.com.cn/hr-emp-infos/" + newValue;
+                        //   let url = "https://bpmwtdev.wistron.com/rest/bpm/wle/v1/exposed/service";
+		                        $http({
+		                            method: 'GET',
+		                            url: url,
+		                            xhrFields: {
+		                                withCredentials: true
+		                            },
+		                            crossDomain: true
+		                        }).then(function successCallback(response) {
+		                       		
+		                            $scope.employeeID = newValue;
+		                            if(typeof(response.data) == "object" && response.data.length != 0){
+			                            console.log("请求成功了： "+response.data);
+			                            $scope.employeeName = response.data[0].name;
+			                            $scope.employeeDepartment = response.data[0].deptidA;
+			                            $scope.applyDate = $filter("date")(new Date(), "yyyy-MM-dd HH:mm:ss");
+		                            }
+		                        }, function errorCallback(response) {
+		                        	
+		                            // 请求失败执行代码
+		                        });
+  					}, 1000);
+                    } 
+                    
                 }
+
             })
+              
         }]);
     </script>
 </body>

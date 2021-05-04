@@ -1,0 +1,7 @@
+{
+    "employeeID": "工号",
+    "employeeName": "姓名",
+    "employeeDepartment": "部门",
+    "applyDate": "申请日期",
+    "message": "请假申请单"
+}
